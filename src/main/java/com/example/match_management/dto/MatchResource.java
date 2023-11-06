@@ -1,11 +1,36 @@
 package com.example.match_management.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 public class MatchResource {
 
     private long id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    private LocalDate matchDate;
+
+    @JsonFormat(pattern = "HH:mm")
+    @JsonDeserialize(using = LocalTimeDeserializer.class)
+    @JsonSerialize(using = LocalTimeSerializer.class)
+    private LocalTime matchTime;
+
+    private String teamA;
+    private String teamB;
+    private String sport;
+
+    private String description;
 
     public long getId() {
 	return id;
@@ -15,8 +40,6 @@ public class MatchResource {
 	this.id = id;
     }
 
-    private String description;
-
     public String getDescription() {
 	return description;
     }
@@ -24,8 +47,6 @@ public class MatchResource {
     public void setDescription(String description) {
 	this.description = description;
     }
-
-    private LocalDate matchDate;
 
     public LocalDate getMatchDate() {
 	return matchDate;
@@ -35,8 +56,6 @@ public class MatchResource {
 	this.matchDate = matchDate;
     }
 
-    private LocalTime matchTime;
-
     public LocalTime getMatchTime() {
 	return matchTime;
     }
@@ -44,8 +63,6 @@ public class MatchResource {
     public void setMatchTime(LocalTime matchTime) {
 	this.matchTime = matchTime;
     }
-
-    private String teamA;
 
     public String getTeamA() {
 	return teamA;
@@ -55,7 +72,6 @@ public class MatchResource {
 	this.teamA = teamA;
     }
 
-    private String teamB;
 
     public String getTeamB() {
 	return teamB;
@@ -65,8 +81,6 @@ public class MatchResource {
 	this.teamB = teamB;
     }
 
-    private String sport;
-
     public String getSport() {
 	return sport;
     }
@@ -75,13 +89,4 @@ public class MatchResource {
 	this.sport = sport;
     }
 
-    public MatchOddResource matchOdd;
-
-    public MatchOddResource getMatchOdd() {
-	return matchOdd;
-    }
-
-    public void setMatchOdd(MatchOddResource matchOdd) {
-	this.matchOdd = matchOdd;
-    }
 }

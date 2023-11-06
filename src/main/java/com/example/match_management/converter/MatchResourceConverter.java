@@ -2,32 +2,22 @@ package com.example.match_management.converter;
 
 import com.example.match_management.dto.MatchResource;
 import com.example.match_management.entity.Match;
-import com.example.match_management.entity.MatchOdds;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 
-import java.util.function.BiFunction;
-
-public class MatchResourceConverter implements BiFunction<Match, MatchOdds, MatchResource> {
-
-    private final MatchOddResourceConverter matchOddResourceConverter;
-
-    public MatchResourceConverter(MatchOddResourceConverter matchOddResourceConverter) {
-	this.matchOddResourceConverter = matchOddResourceConverter;
-    }
+@Component
+public class MatchResourceConverter implements Converter<Match, MatchResource> {
 
     @Override
-    public MatchResource apply(Match match, MatchOdds matchOdds) {
+    public MatchResource convert(Match source) {
 	MatchResource matchResource = new MatchResource();
-	matchResource.setId(match.getId());
-	matchResource.setMatchDate(match.getMatchDate());
-	matchResource.setMatchTime(match.getMatchTime());
-	matchResource.setDescription(match.getDescription());
-	matchResource.setTeamA(match.getTeamA());
-	matchResource.setTeamB(match.getTeamB());
-	matchResource.setSport(match.getSport().name());
-	if (matchOdds != null) {
-	    matchResource.setMatchOdd(matchOddResourceConverter.convert(matchOdds));
-	}
+	matchResource.setId(source.getId());
+	matchResource.setMatchDate(source.getMatchDate());
+	matchResource.setMatchTime(source.getMatchTime());
+	matchResource.setDescription(source.getDescription());
+	matchResource.setTeamA(source.getTeamA());
+	matchResource.setTeamB(source.getTeamB());
+	matchResource.setSport(source.getSport().name());
 	return matchResource;
     }
 }
