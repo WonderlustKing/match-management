@@ -1,5 +1,5 @@
 # match-management
-A basic Match odds management system 
+A basic Match odds management system (with Spring-Boot & PostgreSQL)
 
 Create Docker image
 ```
